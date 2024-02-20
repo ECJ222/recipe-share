@@ -1,0 +1,21 @@
+<div class="create-recipe-form hidden" data-controller="create-recipe">
+  <%= button_tag "Close", class: "btn btn-primary close-btn"%>
+  <%= form_with url: '/recipes', method: :post do |form| %>
+    <div class="form-group">
+      <%= form.label :name  %>
+      <%= form.text_field :name, required: true %>
+    </div>
+    <div class="form-group">
+      <%= form.label :description  %>
+      <%= form.text_area :description, required: true %>
+    </div>
+    <div class="form-group">
+      <label>Image</label>
+      <div class="file-upload-container">
+        <%= form.label :image, "Choose file"  %>
+        <%= form.file_field :image, required: true %>
+      </div>
+    </div>
+    <%= form.submit "Create", class: "btn btn-primary recipe-form__submit" %>
+  <% end %>
+</div>

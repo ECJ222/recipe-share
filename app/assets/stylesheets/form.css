@@ -1,0 +1,29 @@
+.form-group-wrapper {
+  width: var(--full-width);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.form-group input {
+  min-height: 25px;
+  padding: 8px;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  padding: 8px;
+  resize: none;
+}

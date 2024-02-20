@@ -1,0 +1,23 @@
+<div class="recipes">
+  <div class="recipes__heading">
+    <h1 class="logo">Recipe Share</h1>
+    <%= link_to :logout, class: "btn btn-primary logout-btn", data: { turbo_method: :delete } do %>
+      Logout
+    <% end %>
+  </div>
+  <%= button_tag 'Create Recipe',  class: "btn btn-primary recipe-btn", id: "create-recipe-btn", type: 'button' %>
+  <%= render partial: 'recipe_form' %>
+  <div class="recipe__cards">
+    <% @recipes.each do |recipe| %>
+      <%= link_to "/#{recipe.id}", class: "recipe__card" do %>
+        <%= image_tag recipe.image_url, class: "recipe__card-image" %>
+        <div class="recipe__card-text-wrapper">
+          <span class="recipe__card-name">
+            <%= recipe.name %>
+          </span>
+          <p class="recipe__card-description"> <%= recipe.description %></p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

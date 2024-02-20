@@ -1,0 +1,64 @@
+<div class="recipe__wrapper">
+  <%= link_to "Back", '/', class: 'back-link' %>
+  <div class="recipe">
+    <%= image_tag @recipe.image_url, class: "recipe__image" %>
+    <div class="recipe__info">
+      <div class="recipe__info-wrapper">
+        <span class="recipe__info-head">
+          Name
+        </span>
+        <span class="recipe__name">
+          <%= @recipe.name %>
+        </span>
+      </div>
+      <div class="recipe__info-wrapper">
+        <span class="recipe__info-head">
+          Description
+        </span>
+        <p class="recipe__description">
+          <%= @recipe.description %>
+        </p>
+      </div>
+      <div class="recipe__actions">
+        <%= button_tag class: "btn btn-primary social-share-btn", id: "social-share-btn", type: 'button' do %>
+          Share
+          <i data-lucide="share-2"></i>
+        <% end %>
+        <% if Current.user.email === @recipe.user.email %>
+          <%= link_to "Delete", recipe_path(@recipe.id), data: { turbo_method: :delete }, class: "delete-btn" %>
+        <% end %>
+      </div>
+      <%= render partial: 'social_share_modal' %>
+    </div>
+  </div>
+  <%= form_with url: "/recipes/#{@recipe.id}/comments", class: "recipe-comment__form", method: :post do |form| %>
+    <%= form.text_area :content, required: true  %>
+    <%= form.submit "Comment", class: "btn btn-primary" %>
+  <% end %>
+  <% if @recipe.comments.any?%>
+    <div class="recipe-comments__wrapper">
+      <h3 class="recipe-comments__heading">Comments</h3>
+      <div class="recipe-comments">
+        <% @recipe.comments.each do |comment| %>
+          <div class="comment">
+            <span class="comment__author">
+              <%= "#{comment.user.first_name} #{comment.user.last_name}" %>
+            </span>
+            <p class="comment__message">
+              <%= comment.content %>
+            </p>
+            <div class="comment__sub-info">
+              <span class="comment__date">
+                <%= comment.created_at %>
+              </span>
+              <% if Current.user.email === comment.user.email %>
+                <span class="separator">•</span>
+                <%= link_to "Delete", recipe_comment_path(comment.recipe_id, comment), data: { turbo_method: :delete }, class: "delete-btn" %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
